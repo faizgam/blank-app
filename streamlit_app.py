@@ -42,3 +42,35 @@ if uploaded_file:
 
             st.success(f"Hasil: **{label}**")
             st.info(f"Tingkat Keyakinan: **{confidence:.2f}%**")
+
+
+# ===== UPLOAD GAMBAR =====
+uploaded_file = st.file_uploader(
+    "Upload gambar daun mangga",
+    type=["jpg", "jpeg", "png"]
+)
+
+if uploaded_file is not None:
+    image = Image.open(uploaded_file).resize((96, 96))
+    st.image(image, caption=uploaded_file.name, use_column_width=True)
+
+    # ===== PREPROCESS =====
+    img_array = np.array(image) / 255.0
+    img_array = np.expand_dims(img_array, axis=0)
+
+    # ===== PREDIKSI =====
+    prediction = model.predict(img_array)
+    confidence = np.max(prediction) * 100
+    class_index = np.argmax(prediction)
+    result = class_names[class_index]
+
+    # ===== OUTPUT =====
+    st.markdown(
+        f"<div class='result-box'>🌱 Penyakit: {result}</div>",
+        unsafe_allow_html=True
+    )
+
+    st.markdown(
+        f"<div class='conf-box'>📊 Confidence: {confidence:.2f}%</div>",
+        unsafe_allow_html=True
+    )
