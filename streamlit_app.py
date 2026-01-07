@@ -33,3 +33,20 @@ with col1:
 with col2:
     st.subheader("📊 Hasil Prediksi")
 
+#tombol prediksi
+
+if uploaded_file:
+    if st.button("🔍 Prediksi"):
+        with st.spinner("Sedang memproses..."):
+            img = image.resize((96, 96))
+            img = np.array(img) / 255.0
+            img = np.expand_dims(img, axis=0)
+
+            model = tf.keras.models.load_model("model.h5")
+            pred = model.predict(img)[0][0]
+
+            label = "🐱 Kucing" if pred < 0.5 else "🐶 Anjing"
+            confidence = (1 - pred) * 100 if pred < 0.5 else pred * 100
+
+            st.success(f"Hasil: **{label}**")
+            st.info(f"Tingkat Keyakinan: **{confidence:.2f}%**")
