@@ -8,7 +8,7 @@ st.set_page_config(
     layout="centered"
 )
 
-st.title("🐱🐶 Klasifikasi Gambar Kucing & Anjing")
+st.title("Klasifikasi Gambar Kucing & Anjing")
 st.write("""
 Aplikasi ini menggunakan **Convolutional Neural Network (CNN)**
 untuk mengklasifikasikan gambar **kucing** dan **anjing**.
