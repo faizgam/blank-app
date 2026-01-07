@@ -23,15 +23,7 @@ if uploaded_file is not None:
     image = Image.open(uploaded_file)
     st.image(image, caption="Gambar yang diupload", use_column_width=True)
 
-col1, col2 = st.columns(2)
 
-with col1:
-    st.subheader("📸 Gambar")
-    if uploaded_file:
-        st.image(image, use_column_width=True)
-
-with col2:
-    st.subheader("📊 Hasil Prediksi")
 
 #tombol prediksi
 
